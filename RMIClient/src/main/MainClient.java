@@ -18,14 +18,20 @@ import javax.swing.JOptionPane;
 public class MainClient {
     public static void main(String args[]){
         try{
-            String aValue = JOptionPane.showInputDialog("Ingrese primer valor numérico");
-            String bValue = JOptionPane.showInputDialog("Ingrese segundo valor numérico");
-            double aVal = Double.parseDouble(aValue);
-            double bVal = Double.parseDouble(bValue);
+            String origin = JOptionPane.showInputDialog("Ingrese Nombre de origen");
+            String destination = JOptionPane.showInputDialog("Ingrese Nombre de destino");
+            String message = JOptionPane.showInputDialog("Ingrese Mensaje");
             
             Registry myRegistry = LocateRegistry.getRegistry("localhost",1234);
-            RemoteInterface ri = (RemoteInterface) myRegistry.lookup("localhost//Mathematics");
-            JOptionPane.showMessageDialog(null, "El resultado de la Suma es " + ri.sum(aVal, bVal));
+            RemoteInterface ri = (RemoteInterface) myRegistry.lookup("localhost//Messages");
+            ri.sendMessage(message, origin, destination);
+            int seeMsg = JOptionPane.showConfirmDialog(null, origin+"¿Desea ver mensajes de entrada?");
+            if (seeMsg == JOptionPane.OK_OPTION){
+               String msgOrigin = ri.getMessageByDestination(origin).getOrigin();
+               String msgDestination = ri.getMessageByDestination(origin).getDestination();
+               String msg = ri.getMessageByDestination(origin).getMessage();
+                JOptionPane.showMessageDialog(null, "El mensaje de " + msgOrigin + " hacia " + msgDestination + "es: \n" + msg);
+            }
                     
         }catch(Exception e){
             System.out.println(e.getMessage());

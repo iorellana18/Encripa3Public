@@ -6,6 +6,7 @@
 
 package RMI;
 
+import Objects.Message;
 import java.rmi.Remote;
 
 /**
@@ -17,4 +18,8 @@ public interface RemoteInterface extends Remote{
     public double subtraction(double x, double y) throws Exception;
     public double multiplication(double x, double y) throws Exception;
     public double division(double x, double y) throws Exception;
+    public void sendMessage(String message, String origin, String destination) throws Exception;
+    public Message getMessageByIndex(int index) throws Exception;
+    public Message getMessageByMessageId(String uniqueId) throws Exception;
+    public Message getMessageByDestination(String destination) throws Exception;
 }

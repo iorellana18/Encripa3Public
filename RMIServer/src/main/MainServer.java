@@ -18,7 +18,7 @@ public class MainServer {
     public static void main(String args[]){
         try{
             Registry myRegistry = LocateRegistry.createRegistry(1234);
-            myRegistry.rebind("localhost//Mathematics", new ServerImplements());
+            myRegistry.rebind("localhost//Messages", new ServerImplements());
             System.out.println("Server ON");
         }catch(Exception e){
             System.out.println(e.getMessage());
