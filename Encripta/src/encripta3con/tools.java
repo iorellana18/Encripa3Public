@@ -343,6 +343,7 @@ public class tools {
         }
        return pRandom;
    }
+   
    public boolean isPrime(int n) {
        int i;
        for(i=2;i<=Math.sqrt(n);i++){
