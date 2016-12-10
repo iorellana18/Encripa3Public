@@ -7,7 +7,6 @@
 package Client;
 
 import RMI.RemoteInterface;
-import Server.ServerImplements;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.JOptionPane;
