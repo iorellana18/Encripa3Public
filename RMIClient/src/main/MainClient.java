@@ -30,7 +30,7 @@ public class MainClient {
                String msgOrigin = ri.getMessageByDestination(origin).getOrigin();
                String msgDestination = ri.getMessageByDestination(origin).getDestination();
                String msg = ri.getMessageByDestination(origin).getMessage();
-                JOptionPane.showMessageDialog(null, "El mensaje de " + msgOrigin + " hacia " + msgDestination + "es: \n" + msg);
+                JOptionPane.showMessageDialog(null, " El mensaje de " + msgOrigin + " hacia " + msgDestination + " es: \n" + msg);
             }
                     
         }catch(Exception e){
