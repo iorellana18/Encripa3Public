@@ -75,6 +75,7 @@ public class UserInterfaceRMIServer extends javax.swing.JFrame {
             Registry myRegistry = LocateRegistry.createRegistry(1234);
             myRegistry.rebind("localhost//Messages", new ServerImplements());
             System.out.println("Server ON");
+            jLabel1.setText("Estado servidor: Conectado!");
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

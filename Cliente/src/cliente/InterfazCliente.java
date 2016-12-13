@@ -356,7 +356,7 @@ public class InterfazCliente extends javax.swing.JFrame {
                 String destination = jTextField2.getText();
                 Registry myRegistry = LocateRegistry.getRegistry("localhost",1234);
                 RemoteInterface ri = (RemoteInterface) myRegistry.lookup("localhost//Messages");
-                String encriptado = actions.Encripta(texto, String.valueOf(K), 100);
+                String encriptado = actions.Encripta(texto, jTextField7.getText(), 100);
                 ri.sendMessage(encriptado, origin, destination, 4);
                 JOptionPane.showMessageDialog(rootPane, encriptado);
                 jTextArea1.setText(null);
@@ -380,7 +380,7 @@ public class InterfazCliente extends javax.swing.JFrame {
             if(mensaje != null){
                 String textoEncriptado = mensaje.getMessage();
                 if(textoEncriptado.length() > 0){
-                    String desencriptado = actions.Desencripta(textoEncriptado , String.valueOf(K));
+                    String desencriptado = actions.Desencripta(textoEncriptado , jTextField7.getText());
                     jTextArea2.setText(desencriptado);
                     ri.bindMessage(mensaje.getUniqueMessageId());
                 }
