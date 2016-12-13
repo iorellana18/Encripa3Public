@@ -18,12 +18,18 @@ public class  Message implements Serializable{
     String message;
     String origin;
     String destination;
+    int type;
 
-    public Message(String message, String origin, String destination) {
+    public Message(String message, String origin, String destination, int type) {
         this.uniqueMessageId = UUID.randomUUID().toString();
         this.message = message;
         this.origin = origin;
         this.destination = destination;
+        this.type = type;
+    }
+    
+    public int getType() {
+        return type;
     }
 
     public String getUniqueMessageId() {

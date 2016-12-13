@@ -241,14 +241,14 @@ public class tools {
         ascii=(char)valor;
         Encrypt=Encrypt+ascii;
         OutputStream o;
-//        try{
-//                o = new FileOutputStream("/home/ian/Escritorio/results.txt");
-//                //mir_id, lncRNA transcript id, position of seed in transcript, dG duplex, dG binding, dG open, ddG
-//                o.write((numBloques+"-"+Encrypt).getBytes());
-//                o.close();
-//            }catch(IOException e){
-//                e.printStackTrace();
-//            }
+        try{
+                o = new FileOutputStream("/home/ian/Escritorio/results.txt");
+                //mir_id, lncRNA transcript id, position of seed in transcript, dG duplex, dG binding, dG open, ddG
+                o.write((numBloques+"-"+Encrypt).getBytes());
+                o.close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
         return Encrypt;
        
     }

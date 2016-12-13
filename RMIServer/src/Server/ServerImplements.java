@@ -8,6 +8,7 @@ package Server;
 
 import Objects.Message;
 import RMI.RemoteInterface;
+import java.math.BigInteger;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,15 @@ public class ServerImplements extends UnicastRemoteObject implements RemoteInter
         this.messages = new ArrayList<>();
     }
     @Override
-    public void sendMessage(String message, String origin, String destination){
-        messages.add(new Message(message, origin, destination));
+    public void sendMessage(String message, String origin, String destination, int type){
+        messages.add(new Message(message, origin, destination, type));
     }
+    
+    @Override
+    public void sendParameter(BigInteger value, String origin, String destination, int type) throws Exception {
+        messages.add(new Message(value, origin, destination, type));
+    }
+    
     @Override 
     public Message getMessageByIndex(int index){
         return messages.get(index);
@@ -39,28 +46,30 @@ public class ServerImplements extends UnicastRemoteObject implements RemoteInter
         return null;
     }
     @Override 
-    public Message getMessageByDestination(String destination){
+    public Message getMessageByDestination(String destination, int type){
         for(Message msg : messages){
-            if(destination.compareTo(msg.getDestination()) == 0) return msg;
+            if(destination.compareTo(msg.getDestination()) == 0
+                    && msg.getType() == type) return msg;
         }
         return null;
     }
     
-    
     @Override
-    public double sum(double x, double y){
-        return (x + y);
+    public Message getMessageByType(String origin, String destination, int type) throws Exception {
+        for(Message msg : messages){
+            if(destination.compareTo(msg.getDestination()) == 0 && origin.compareTo(msg.getOrigin()) == 0 && msg.getType() == type) return msg;
+        }
+        return null;
     }
+
     @Override
-    public double subtraction(double x, double y){
-        return (x - y);
+    public void bindMessage(String uniqueid) throws Exception {
+        for(Message msg : messages){
+            if(msg.getUniqueMessageId().compareTo(uniqueid) == 0){
+                msg.setDestination("--");
+                msg.setOrigin("--");
+            }
+        }
     }
-    @Override
-    public double multiplication(double x, double y){
-        return (x * y);
-    }
-    @Override
-    public double division(double x, double y){
-        return (x / y);
-    }
+     
 }

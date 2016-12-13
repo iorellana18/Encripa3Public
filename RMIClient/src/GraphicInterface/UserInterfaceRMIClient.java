@@ -6,12 +6,22 @@
 
 package GraphicInterface;
 
+import RMI.RemoteInterface;
+import encripta3con.Acciones;
+import encripta3con.tools;
+import java.math.BigInteger;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Israel Martínez <your.name at your.org>
  */
 public class UserInterfaceRMIClient extends javax.swing.JFrame {
-
+    int a;
+    int b;
+    BigInteger K;
     /**
      * Creates new form UserInterfaceRMIServer
      */
@@ -44,11 +54,9 @@ public class UserInterfaceRMIClient extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
         jToggleButton6 = new javax.swing.JToggleButton();
         jLabel9 = new javax.swing.JLabel();
         jToggleButton7 = new javax.swing.JToggleButton();
-        jToggleButton8 = new javax.swing.JToggleButton();
         jLabel10 = new javax.swing.JLabel();
         jToggleButton9 = new javax.swing.JToggleButton();
         jToggleButton10 = new javax.swing.JToggleButton();
@@ -62,15 +70,43 @@ public class UserInterfaceRMIClient extends javax.swing.JFrame {
 
         jLabel2.setText("2) Nombre Usuario Destino:");
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("8) Mensaje a Enviar:");
 
         jToggleButton1.setText("3) Generar y enviar p y g");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("p:");
 
         jLabel5.setText("g:");
 
         jToggleButton2.setText("4) Generar Clave Privada");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
 
         jToggleButton3.setText("5) Recibir Resultado Cálculo");
 
@@ -78,17 +114,28 @@ public class UserInterfaceRMIClient extends javax.swing.JFrame {
 
         jLabel8.setText("Mensaje Recibido:");
 
-        jToggleButton4.setText("Encriptar Mensaje");
-
-        jToggleButton5.setText("Enviar mensaje");
+        jToggleButton4.setText("Encriptar y Enviar Mensaje");
+        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton4ActionPerformed(evt);
+            }
+        });
 
         jToggleButton6.setText("7) Calcular Clave de Sesión");
+        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("cálculo destino:");
 
-        jToggleButton7.setText("Recibir Mensaje");
-
-        jToggleButton8.setText("Desencriptar Mensaje");
+        jToggleButton7.setText("Desencriptar y Recibir Mensaje");
+        jToggleButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton7ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("clave de sesión:");
 
@@ -158,8 +205,6 @@ public class UserInterfaceRMIClient extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jToggleButton4)
                             .addComponent(jToggleButton7)
-                            .addComponent(jToggleButton5)
-                            .addComponent(jToggleButton8)
                             .addComponent(jLabel11))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -200,27 +245,185 @@ public class UserInterfaceRMIClient extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jToggleButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jToggleButton5))
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton4))
                 .addGap(3, 3, 3)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToggleButton7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jToggleButton8)))
+                    .addComponent(jToggleButton7))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        try{
+            String origin = jTextField1.getText();
+            String destination = jTextField2.getText();
+            BigInteger p;
+            BigInteger g;
+            tools t = new tools();
+            Registry myRegistry = LocateRegistry.getRegistry("localhost",1234);
+            RemoteInterface ri = (RemoteInterface) myRegistry.lookup("localhost//Messages");
+            
+            //Se comprueba si existe p (entonces no existe p, g, a, b)
+            if(ri.getMessageByType(origin, destination, 1).getMessage().compareTo(null) == 0
+                    && ri.getMessageByType(destination, origin, 1).getMessage().compareTo(null) == 0){
+                
+                this.a = t.randomPrime();
+                this.b = t.randomPrime();
+                
+                if(a > b){
+                    p = BigInteger.valueOf(a);
+                    g = BigInteger.valueOf(b);
+                }else{ 
+                    p  =BigInteger.valueOf(b);
+                    g = BigInteger.valueOf(a);
+                }
+                ri.sendMessage(p.toString() ,origin, destination, 1);
+                ri.sendMessage(g.toString() ,origin, destination, 2);               
+            }
+            else{
+                if(ri.getMessageByType(origin, destination, 1).getMessage().compareTo(null) == 0){
+                    p = BigInteger(ri.getMessageByType(destination, origin, 1).getMessage());
+                    g = BigInteger(ri.getMessageByType(destination, origin, 2).getMessage());
+                }
+                    
+                else{
+                    p = BigInteger(ri.getMessageByType(origin, destination, 1).getMessage());
+                    g = BigInteger(ri.getMessageByType(origin, destination, 2).getMessage());
+                }
+            }
+            
+            jLabel4.setText("p: "+p);
+            jLabel5.setText("g: "+g);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        try{
+            String origin = jTextField1.getText();
+            String destination = jTextField2.getText();
+            tools t = new tools();
+
+            Registry myRegistry = LocateRegistry.getRegistry("localhost",1234);
+            RemoteInterface ri = (RemoteInterface) myRegistry.lookup("localhost//Messages");
+
+            BigInteger p, g;
+            if(ri.getMessageByType(origin, destination, 1).getMessage().compareTo(null) != 0
+                && ri.getMessageByType(destination, origin, 1).getMessage().compareTo(null) != 0){
+
+                if(ri.getMessageByType(origin, destination, 1).getMessage().compareTo(null) == 0){
+                    p = BigInteger(ri.getMessageByType(destination, origin, 1).getMessage());
+                    g = BigInteger(ri.getMessageByType(destination, origin, 2).getMessage());
+                }
+
+                else{
+                    p = BigInteger(ri.getMessageByType(origin, destination, 1).getMessage());
+                    g = BigInteger(ri.getMessageByType(origin, destination, 2).getMessage());
+                }
+
+                int a = t.randomClave(0, this.a);
+                BigInteger R = g.modPow(BigInteger.valueOf(a), p);
+
+                ri.sendMessage(R.toString(), origin, destination, 3);
+                jLabel6.setText("clave privada: "+p.toString());
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
+        String origin = jTextField1.getText();
+        String destination = jTextField2.getText();
+        tools t = new tools();
+
+        try{
+
+            Registry myRegistry = LocateRegistry.getRegistry("localhost",1234);
+            RemoteInterface ri = (RemoteInterface) myRegistry.lookup("localhost//Messages");
+
+            BigInteger p;
+            if(ri.getMessageByType(origin, destination, 1).getMessage().compareTo(null) != 0
+                && ri.getMessageByType(destination, origin, 1).getMessage().compareTo(null) != 0){
+
+                if(ri.getMessageByType(origin, destination, 1).getMessage().compareTo(null) == 0){
+                    p = BigInteger(ri.getMessageByType(destination, origin, 1).getMessage());
+                }
+
+                else{
+                    p = BigInteger(ri.getMessageByType(origin, destination, 1).getMessage());
+                }
+                
+                BigInteger R = BigInteger(ri.getMessageByType(destination, origin, 3).getMessage());
+                
+                this.K = R.modPow(BigInteger.valueOf(a), p);
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jToggleButton6ActionPerformed
+
+    private void jToggleButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton7ActionPerformed
+        Acciones actions = new Acciones();
+        String origin = jTextField1.getText();
+        String destination = jTextField2.getText();
+
+        try{
+
+            Registry myRegistry = LocateRegistry.getRegistry("localhost",1234);
+            RemoteInterface ri = (RemoteInterface) myRegistry.lookup("localhost//Messages");
+            
+            String desencriptado = actions.Desencripta(ri.getMessageByDestination(destination,4).getMessage(), String.valueOf(K));
+            jTextField5.setText(desencriptado);
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jToggleButton7ActionPerformed
+
+    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
+        Acciones actions = new Acciones();
+        String origin = jTextField1.getText();
+        String destination = jTextField2.getText();
+
+        try{
+
+            Registry myRegistry = LocateRegistry.getRegistry("localhost",1234);
+            RemoteInterface ri = (RemoteInterface) myRegistry.lookup("localhost//Messages");
+
+            String encriptado = actions.Encripta(jTextField3.getText(), String.valueOf(K), 100);
+            
+            ri.sendMessage(encriptado, origin, destination, 4);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jToggleButton4ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,10 +483,12 @@ public class UserInterfaceRMIClient extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
     private javax.swing.JToggleButton jToggleButton6;
     private javax.swing.JToggleButton jToggleButton7;
-    private javax.swing.JToggleButton jToggleButton8;
     private javax.swing.JToggleButton jToggleButton9;
     // End of variables declaration//GEN-END:variables
+
+    private BigInteger BigInteger(String message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

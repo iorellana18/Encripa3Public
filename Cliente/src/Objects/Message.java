@@ -13,7 +13,7 @@ import java.util.UUID;
  *
  * @author Carlos
  */
-public class Message implements Serializable{
+public class Message  implements Serializable{
     String uniqueMessageId;
     String message;
     String origin;

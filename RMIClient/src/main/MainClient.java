@@ -24,12 +24,12 @@ public class MainClient {
             
             Registry myRegistry = LocateRegistry.getRegistry("localhost",1234);
             RemoteInterface ri = (RemoteInterface) myRegistry.lookup("localhost//Messages");
-            ri.sendMessage(message, origin, destination);
+            ri.sendMessage(message, origin, destination, 4);
             int seeMsg = JOptionPane.showConfirmDialog(null, origin+"¿Desea ver mensajes de entrada?");
             if (seeMsg == JOptionPane.OK_OPTION){
-               String msgOrigin = ri.getMessageByDestination(origin).getOrigin();
-               String msgDestination = ri.getMessageByDestination(origin).getDestination();
-               String msg = ri.getMessageByDestination(origin).getMessage();
+               String msgOrigin = ri.getMessageByDestination(origin, 4).getOrigin();
+               String msgDestination = ri.getMessageByDestination(origin,4).getDestination();
+               String msg = ri.getMessageByDestination(origin,4).getMessage();
                 JOptionPane.showMessageDialog(null, " El mensaje de " + msgOrigin + " hacia " + msgDestination + " es: \n" + msg);
             }
                     
