@@ -336,7 +336,7 @@ public class tools {
    public int randomPrime(){
        int pRandom=0;
        while (true) {
-            pRandom = (int) (Math.random() * (127 - 2) + 2);
+            pRandom = (int) (Math.random() * (20 - 2) + 2);
             if(isPrime(pRandom)){
                 break;
             }

@@ -6,6 +6,7 @@
 
 package main;
 
+import GraphicInterface.UserInterfaceRMIServer;
 import Server.ServerImplements;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -16,13 +17,8 @@ import java.rmi.registry.Registry;
  */
 public class MainServer {
     public static void main(String args[]){
-        try{
-            Registry myRegistry = LocateRegistry.createRegistry(1234);
-            myRegistry.rebind("localhost//Messages", new ServerImplements());
-            System.out.println("Server ON");
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
+        UserInterfaceRMIServer server = new UserInterfaceRMIServer();
+        server.setVisible(true);
     }
     
 }

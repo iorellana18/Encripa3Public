@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class InterfazCliente extends javax.swing.JFrame {
     BigInteger K;
+    long k;
     Acciones actions = new Acciones();
     /**
      * Creates new form InterfazCliente
@@ -101,14 +102,11 @@ public class InterfazCliente extends javax.swing.JFrame {
         jTextField3.setEditable(false);
 
         jTextField4.setEditable(false);
-        jTextField4.setText("jTextField4");
         jTextField4.setToolTipText("");
 
         jTextField5.setEditable(false);
-        jTextField5.setText("jTextField5");
 
         jTextField6.setEditable(false);
-        jTextField6.setText("jTextField6");
 
         jLabel4.setText("G:");
 
@@ -118,14 +116,17 @@ public class InterfazCliente extends javax.swing.JFrame {
 
         jLabel7.setText("Clave generada:");
 
-        jTextField7.setEditable(false);
-        jTextField7.setText("jTextField7");
+        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField7ActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Encriptar y Enviar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -141,14 +142,14 @@ public class InterfazCliente extends javax.swing.JFrame {
 
         jLabel9.setText("Mensajes recibidos:");
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Desencriptar y Recibir");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Generar clave");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -165,7 +166,6 @@ public class InterfazCliente extends javax.swing.JFrame {
         jLabel10.setText("b (G^B mod P)");
 
         jTextField8.setEditable(false);
-        jTextField8.setText("jTextField8");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,7 +187,7 @@ public class InterfazCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -359,6 +359,7 @@ public class InterfazCliente extends javax.swing.JFrame {
                 String encriptado = actions.Encripta(texto, String.valueOf(K), 100);
                 ri.sendMessage(encriptado, origin, destination, 4);
                 JOptionPane.showMessageDialog(rootPane, encriptado);
+                jTextArea1.setText(null);
             }
             
             
@@ -418,13 +419,21 @@ public class InterfazCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int b = Integer.parseInt(jTextField8.getText());
-        int A = Integer.parseInt(jTextField5.getText());
-        int p = Integer.parseInt(jTextField4.getText());
+        long b = Long.parseLong(jTextField8.getText());
+        long A = Long.parseLong(jTextField5.getText());
+        long p = Long.parseLong(jTextField4.getText());
         K = BigInteger.valueOf(b).modPow(BigInteger.valueOf(A), BigInteger.valueOf(p));
-        K = BigInteger.valueOf(123);
-        jTextField7.setText(K.toString());
+        //K = BigInteger.valueOf(123);
+        
+        //k = Math.pow(b, A);
+        //k = k%p;
+        
+        jTextField7.setText(String.valueOf(K));
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField7ActionPerformed
 
     /**
      * @param args the command line arguments
